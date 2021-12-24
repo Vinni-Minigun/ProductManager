@@ -15,8 +15,9 @@ class ProductManagerTest {
 
     private Product productOne = new Book(1, "War and Peace", 250, "Leo Tolstoy");
     private Product productTwo = new Book(2, "The Colour of Magic", 200, "Terry Pratchett");
-    private Product productThree = new Smartphone(3, "510", 7000, "Motorolla");
-    private Product productFour = new Smartphone(4, "Galaxy S20", 60000, "Samasung");
+    private Product productThree = new Smartphone(3, "510", 7000, "Motorola");
+    private Product productFour = new Smartphone(4, "Galaxy S20", 60000, "Samsung");
+    private Product productFive = new Book(5, "Anna Karenina", 270, "Leo Tolstoy");
     private Product[] notProduct = new Product[0];
 
 
@@ -26,12 +27,13 @@ class ProductManagerTest {
         manager.add(productTwo);
         manager.add(productThree);
         manager.add(productFour);
+        manager.add(productFive);
     }
 
     @Test
     void shouldSearchAuthor() {
-        Product[] expected = {productOne};
-        Product[] actual = manager.searchBy("Leo Tolstoy");
+        Product[] expected = {productTwo};
+        Product[] actual = manager.searchBy("Terry Pratchett");
         assertArrayEquals(expected, actual);
     }
 
@@ -43,7 +45,7 @@ class ProductManagerTest {
     }
 
     @Test
-    void shouldSearchSmarthoneName() {
+    void shouldSearchSmartphoneName() {
         Product[] expected = {productFour};
         Product[] actual = manager.searchBy("Galaxy S20");
         assertArrayEquals(expected, actual);
@@ -52,7 +54,7 @@ class ProductManagerTest {
     @Test
     void shouldSearchManufacturer() {
         Product[] expected = {productThree};
-        Product[] actual = manager.searchBy("Motorolla");
+        Product[] actual = manager.searchBy("Motorola");
         assertArrayEquals(expected, actual);
     }
 
@@ -63,5 +65,10 @@ class ProductManagerTest {
         assertArrayEquals(expected, actual);
     }
 
-
+    @Test
+    void shouldFindAllByAuthor() {
+        Product[] expected = new Product[]{productOne, productFive};
+        Product[] actual = manager.searchBy("Leo Tolstoy");
+        assertArrayEquals(expected, actual);
+    }
 }
